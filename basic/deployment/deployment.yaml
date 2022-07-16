@@ -1,0 +1,26 @@
+# Deployment is same with ReplicaSet
+# add the feature
+# Rolling Update
+# Rolling Back
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx-deployment
+    tier: frontend
+spec:
+  template:
+    metadata:
+      name: nginx-deployment
+      labels:
+        app: nginx-deployment
+        tier: frontend
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-deployment

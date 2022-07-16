@@ -1,0 +1,13 @@
+# Will keep created because there will be different ReplicaSet
+# Deployment will create automatically the ReplicaSet
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx-deployment
+    tier: frontend
+spec:
+  containers:
+    - name: nginx
+      image: nginx
