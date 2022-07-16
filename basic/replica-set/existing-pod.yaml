@@ -1,0 +1,11 @@
+# Pod ini akan diterminasi, karena sudah ada replica set yang mengatur
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-rs
+  labels:
+    app: nginx-rs
+spec:
+  containers:
+    - name: nginx
+      image: nginx

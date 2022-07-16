@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-rs
+  labels:
+    app: nginx-rs
+    tier: frontend
+spec:
+  template:
+    metadata:
+      name: nginx-rs
+      labels:
+        app: nginx-rs
+        tier: frontend
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+  replicas: 2
+  # ini yang tidak ada di replication controller
+  # jadi replica set bisa memasukkan pod yang sudah terdeploy dengan
+  # label yang sama
+  selector:
+    matchLabels:
+      app: nginx-rs
