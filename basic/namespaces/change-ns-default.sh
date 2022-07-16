@@ -1,0 +1,1 @@
+kubectl config set-context --current --namespace=my-custom-ns
