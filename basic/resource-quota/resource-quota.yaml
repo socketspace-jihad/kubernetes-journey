@@ -1,0 +1,9 @@
+# It depends on what namespace this yaml will be deployed
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: resource-quota
+  namespace: default
+spec:
+  hard:
+    pods: "10"
