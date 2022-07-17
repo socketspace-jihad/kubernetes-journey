@@ -1,0 +1,16 @@
+# Run taint-node.sh (for taint the node ss-sql-cluster-worker, demo purposes)
+
+# This pod still Run on ss-sql-cluster-worker Even without Tolerations value
+# It is caused by nodeName, nodeName above taint and tolerations
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-without-toleration
+  labels:
+    name: nginx-without-toleration
+    tier: frontend
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+  nodeName: ss-sql-cluster-worker

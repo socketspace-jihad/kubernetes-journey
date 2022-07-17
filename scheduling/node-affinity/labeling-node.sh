@@ -1,0 +1,1 @@
+kubectl label nodes ss-sql-cluster-worker kind-

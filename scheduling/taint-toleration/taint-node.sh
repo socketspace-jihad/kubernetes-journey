@@ -1,0 +1,1 @@
+kubectl taint nodes ss-sql-cluster-worker app.kind=green:NoSchedule

@@ -1,0 +1,21 @@
+# Run taint-node.sh (for taint the node ss-sql-cluster-worker, demo purposes)
+
+# This Pod still deployed on ss-sql-cluster-worker because it has tolerations with Node
+# And also nodeName specified
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-with-toleration
+  labels:
+    name: nginx-with-toleration
+    tier: frontend
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+  tolerations:
+    - key: "app.kind"
+      operator: "Equal"
+      value: "green"
+      effect: "NoSchedule"
+  nodeName: ss-sql-cluster-worker
