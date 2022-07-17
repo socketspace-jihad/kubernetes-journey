@@ -1,0 +1,27 @@
+# If you running  label-all-node-to-small.sh script
+# This will be pending, because it's REQUIRED during scheduling
+
+# If you running  label-all-node-to-variety.sh script
+# This pod will Running on Large node
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-node-affinity-required
+  labels:
+    app: nginx-node-affinity-required
+    tier: frontend
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+  affinity:
+    nodeAffinity:
+      # It means it will triggered just from scheduling
+      # and if Node doesnt fit, Pod will be in Pending state
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: machineType
+                operator: NotIn
+                values:
+                  - "Small"

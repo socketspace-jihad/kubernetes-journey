@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-manual-bind
+  labels:
+    app: nginx-manual-bind
+    tier: frontend
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+  # this is for assigning pod to node (define manually scheduling)
+---
+apiVersion: v1
+kind: Binding
+metadata:
+  name: nginx-manual-bind
+target:
+  apiVersion: v1
+  kind: Node
+  name: ss-sql-cluster-worker3

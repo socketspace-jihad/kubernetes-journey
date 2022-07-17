@@ -1,0 +1,28 @@
+# If you running  label-all-node-to-small.sh script
+# This pod still running, because it's just PREFERED during scheduling
+
+# If you running  label-all-node-to-variety.sh script
+# This pod will Running on Large node
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-node-affinity-preferred
+  labels:
+    app: nginx-node-affinity-preferred
+    tier: frontend
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+  affinity:
+    nodeAffinity:
+      # It means it will triggered just from scheduling
+      # and if Node doesnt fit, Scheduler will keep deploying on best suite node
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: machineType
+                operator: NotIn
+                values:
+                  - "Small"
