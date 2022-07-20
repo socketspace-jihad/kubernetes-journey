@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sleeper-override-entrypoint
+  labels:
+    app: sleeper-override-entrypoint
+    tier: cron
+spec:
+  containers:
+    - name: busybox
+      image: busybox
+      # This is equivalent to docker run --entrypoint
+      # that --entrypoint argument is override ENTRYPOINT on Dockerfile a.k.a docker image
+      # Same with this command value
+      command:
+        - "sleep"
+      # This will override default args that defined on CMD on Dockerfile
+      args:
+        - "10"

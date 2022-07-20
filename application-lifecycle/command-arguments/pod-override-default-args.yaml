@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sleeper-override-args
+  labels:
+    app: sleeper-override-args
+    tier: cron
+spec:
+  containers:
+    - name: busybox
+      image: busybox
+      # This will override default args that defined on CMD on Dockerfile
+      args:
+        - "sleep"
+        - "5"
