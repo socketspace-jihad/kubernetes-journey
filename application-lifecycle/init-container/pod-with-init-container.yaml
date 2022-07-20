@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-with-init-container
+  labels:
+    name: nginx-with-init-container
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+  
+  # This initContainers will execute first with SEQUENTIAL ORDER
+  # Once init containers done & SUCESS it will provision the containers
+  # But if failed it will restart again the POD
+
+  # In this case nginx container will created after waiting for these two sleep busybox
+  # 1. sleep 5
+  # 2. sleep 10
+  # 3. create nginx container
+  initContainers:
+    - name: busybox-1
+      image: busybox
+      args:
+        - "sleep"
+        - "5"
+    
+    - name: busybox-2
+      image: busybox
+      args:
+        - "sleep"
+        - "10"
