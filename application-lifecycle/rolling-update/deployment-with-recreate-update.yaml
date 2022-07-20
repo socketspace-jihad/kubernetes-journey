@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-with-rolling-update
+  labels:
+    app: nginx-with-rolling-update
+    tier: frontend
+spec:
+  selector:
+    matchLabels:
+      app: nginx-with-recreate-update
+  template:
+    metadata:
+      name: nginx-with-recreate-update
+      labels:
+        app: nginx-with-recreate-update
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+  replicas: 14
+  # It will kill & recreate all pod for deployment update
+  strategy:
+    type: "Recreate"

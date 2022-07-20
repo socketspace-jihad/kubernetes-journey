@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-with-rolling-update
+  labels:
+    app: nginx-with-rolling-update
+    tier: frontend
+spec:
+  selector:
+    matchLabels:
+      app: nginx-with-rolling-update
+  template:
+    metadata:
+      name: nginx-with-rolling-update
+      labels:
+        app: nginx-with-rolling-update
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+  replicas: 14
+  # By Default update strategy is RollingUpdate
+  strategy:
+    type: "RollingUpdate"
+    rollingUpdate:
+      # max surge means that it can be create 'extra' pod more than deployment replicas should be
+      # for this example, max new pod that can more replica is 14*0.5 = 7 pod
+      # so this is possible for this deployment have 14+7 (extra pod) while update
+      # Value can be integer or percentage
+      maxSurge: "50%"
+      # max unavailable kinda like minimum availability of pods that still serve
+      # in this example, min pod is 14*0.5= 7 pod
+      # Value can be integer or percentage
+      maxUnavailable: "50%"

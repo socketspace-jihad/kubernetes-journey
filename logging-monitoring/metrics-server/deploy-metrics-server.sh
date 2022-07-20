@@ -1,0 +1,1 @@
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/metrics-server/master/manifests/base/deployment.yaml
