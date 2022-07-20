@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-with-config-map
+  labels:
+    app: nginx-with-config-map
+    tier: frontend
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      env:
+        # This will inject env to POD
+        # and you define it directly from this yaml
+        - name: INJECT_TO_POD_DIRECTLY
+          value: "INJECTED FROM POD YAML DIRECTLY"
+
+        # This also will inject env to POD
+        # But you define the value from ConfigMap.yaml
+        - name: INJECT_TO_POD_FROM_POD
+          valueFrom:
+            configMapKeyRef:
+              # This is key of env that the value you want to inject
+              key: INJECT_TO_POD
+              # this is the name of your configmap deployment
+              name: my-config
+      
+      # This will inject all of env within this configmap named "my-config"
+      envFrom:
+        - configMapRef:
+            name: my-config
